@@ -54,13 +54,13 @@
     project-type: freestyle
     concurrent: true
 
-    triggers:
-    - pollurl:
-      polling-node: storage-sig
-      cron: '* * * * *'
-      urls:
-      - url: https://buildlogs.centos.org/centos/7/storage/x86_64/gluster-3.12/repodata/repomd.xml
-        check-date: true
+#    triggers:
+#    - pollurl:
+#      polling-node: 'storage-sig'
+#      cron: '* * * * *'
+#      urls:
+#      - url: https://buildlogs.centos.org/centos/7/storage/x86_64/gluster-3.12/repodata/repomd.xml
+#        check-date: true
 
     builders:
     - trigger-builds:
