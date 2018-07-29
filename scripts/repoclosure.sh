@@ -18,10 +18,10 @@ fi
 REPOS='base updates extras'
 
 # build the repoclosure command
-REPOCLOSURE='repoclosure '
+REPOCLOSURE='repoclosure -n '
 for _REPO in ${REPOS}
 do
-	REPOCLOSURE="${REPOCLOSURE} -r ${_REPO}"
+	REPOCLOSURE="${REPOCLOSURE} -l ${_REPO}"
 done
 
 # munge the REPO into a name yum understands
