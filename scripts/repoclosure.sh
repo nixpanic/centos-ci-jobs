@@ -25,7 +25,7 @@ do
 done
 
 # munge the REPO into a name yum understands
-REPO_NAME="$(sed 's/[-\.]//g' <<< "${REPO}")"
+REPO_NAME="centos-$(sed 's/[-\.]//g' <<< "${REPO}")"
 
 # centos-release package that provides the .repo file
 RELEASE_PKG="centos-release-$(sed 's/[-\.]//g' <<< "${REPO}")"
