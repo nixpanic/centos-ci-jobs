@@ -31,6 +31,7 @@ then
     echo "cico returned an error (${cico_ret})" >/dev/stderr
     exit 2
 elif [ -z "${nodes}" ]
+then
     echo "cico failed to return any systems" >/dev/stderr
     exit 2
 fi
