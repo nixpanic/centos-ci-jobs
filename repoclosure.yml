@@ -27,7 +27,7 @@
         - '7'
         - '6'
         description: CentOS version to verify the repository on
-        name: CENTOS_VERSION
+        name: CENTOS_RELEASE
     - choice:
         choices:
         - x86_64
