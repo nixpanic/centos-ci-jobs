@@ -42,7 +42,13 @@ yum -y install yum-utils
 
 # finally run repoclosure (repoclosure on el6 always returns 0, add grep check)
 ${REPOCLOSURE} -r ${REPO_NAME} | tee /var/tmp/repoclosure_${REPO_NAME}.log
-grep -q 'unresolved deps' /var/tmp/repoclosure_${REPO_NAME}.log && exit 1
+if grep -q 'unresolved deps' /var/tmp/repoclosure_${REPO_NAME}.log
+then
+	exit 1
+fi
 
 ${REPOCLOSURE} -r ${REPO_NAME}-test | tee /var/tmp/repoclosure_${REPO_NAME}-test.log
-grep -q 'unresolved deps' /var/tmp/repoclosure_${REPO_NAME}-test.log && exit 1
+if grep -q 'unresolved deps' /var/tmp/repoclosure_${REPO_NAME}-test.log
+then
+	exit 1
+fi
