@@ -1,0 +1,68 @@
+- job:
+    name: storage-sig_repoclosure
+    node: storage-sig
+    description: Verify YUM repositories
+    project-type: freestyle
+    concurrent: true
+
+    scm:
+    - git:
+        url: https://github.com/nixpanic/centos-ci-jobs.git
+        branches:
+        - origin/master
+
+    builders:
+    - shell: !include-raw: scripts/common/get-node.sh
+    - shell: scripts/common/bootstrap.sh $WORKSPACE/jobs/repoclosure.sh "REPO=${REPO}"
+
+    parameters:
+    - choice:
+        choices:
+        - gluster-4.1
+        - gluster-3.12
+        description: Repository to verify
+        name: REPO
+    - choice:
+        choices:
+        - '7'
+        - '6'
+        description: CentOS version to verify the repository on
+        name: CENTOS_VERSION
+    - choice:
+        choices:
+        - x86_64
+        - i386
+        description: CentOS architecture to verify the repository on
+        name: CENTOS_ARCH
+
+    properties:
+    - build-discarder:
+        days-to-keep: 7
+
+    publishers:
+    - post-tasks:
+        - matches:
+            # "Building remotely" should always be in the build console output
+            - log-text: Building remotely
+          script:
+            !include-raw: scripts/common/return-node.sh
+
+- job:
+    name: storage-sig_repoclosure-trigger-gluster41
+    node: storage-sig
+    description: Trigger repoclosure jobs when gluster41 has been updated
+    project-type: freestyle
+    concurrent: true
+
+    triggers:
+    - url: https://buildlogs.centos.org/centos/7/storage/x86_64/gluster-3.12/repodata/repomd.xml
+
+    builders:
+    - trigger-builds:
+      - project: storage-sig_repoclosure
+        block: false
+        predefined-parameters:
+          CENTOS_RELEASE=7
+          CENTOS_ARCH=x86_64
+          REPO=gluster-3.12
+
