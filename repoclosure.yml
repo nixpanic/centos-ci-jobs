@@ -68,6 +68,8 @@
         block: false
         predefined-parameters:
           CENTOS_RELEASE=7
+          
           CENTOS_ARCH=x86_64
-          REPO=gluster-3.12
+          
+          REPO=gluster-4.1
 
