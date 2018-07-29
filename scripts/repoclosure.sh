@@ -42,3 +42,4 @@ yum -y install yum-utils
 
 # finally run repoclosure
 ${REPOCLOSURE} -r ${REPO_NAME}
+${REPOCLOSURE} -r ${REPO_NAME}-test
